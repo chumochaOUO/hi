@@ -231,12 +231,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90034851}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.338, y: 1.702, z: 0}
-  m_LocalScale: {x: 1.675815, y: 1.675815, z: 1.675815}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0006, y: 1.3789, z: 0}
+  m_LocalScale: {x: 1.6009856, y: 1.3335426, z: 1.675815}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1752779816}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &137612422
 GameObject:
@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 373535004}
   - component: {fileID: 373535003}
   - component: {fileID: 373535002}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "\u9204\u5496"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,6 +881,7 @@ GameObject:
   - component: {fileID: 1752779814}
   - component: {fileID: 1752779813}
   - component: {fileID: 1752779817}
+  - component: {fileID: 1752779818}
   m_Layer: 0
   m_Name: "\u725B\u5976"
   m_TagString: Untagged
@@ -986,7 +987,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.35, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 90034853}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1004,6 +1006,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3.5
   jump: 300
+  checkGroundRadius: 0.1
+  checkGroundOffset: {x: 0, y: 0.04, z: 0}
+  keyjump: 32
+  canJumpLayer:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!95 &1752779818
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752779812}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d3842a994495234589cb6d54c1215e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1807160429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1967056640}
   - component: {fileID: 1967056639}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
