@@ -19,16 +19,36 @@ public class controller2D : MonoBehaviour
     [Header("跳躍按鍵與可跳躍圖層")]
     public KeyCode keyjump = KeyCode.Space;
     public LayerMask canJumpLayer;
-
-    //剛體元件
-    private Rigidbody2D rig;
+    [Header("動畫參數：走路與跳躍")]
+    public string isWalk = "isWalk";
+    public string doTouch = "doTouch";
     #endregion
 
+    #region 欄位：私人
+    private Animator ani; 
+    //剛體元件
+    private Rigidbody2D rig;
+   
+    //將私人欄位顯示在私人面板上
+    [SerializeField]
+    ///<summary>
+    ///是否在地板上
+    /// </summary>
+    private bool isGrounded;
+
+    #endregion
+
+    #region 事件
     /// <summary>
     /// 繪製圖示
     /// 在 Unity 繪製輔助用圖示
     /// 線條、射線、圓形、方形、扇形、圖片
     /// </summary>
+    
+    //void = 呼叫
+    //Start 只會執行一次
+    //public = 公開的，會出現在Unity的
+    //private = 私人的，不會出現在Unity的
 
     private void OnDrawGizmos()
     {
@@ -39,15 +59,11 @@ public class controller2D : MonoBehaviour
             transform.TransformDirection(checkGroundOffset), checkGroundRadius);
     }
 
-    #region Void
-    //void = 呼叫
-    //Start 只會執行一次
-    //public = 公開的，會出現在Unity的
-    //private = 私人的，不會出現在Unity的
     private void Start()
     {
         //剛體欄位 = 取得元件<2D 剛體>()
-         rig = GetComponent<Rigidbody2D>(); 
+        rig = GetComponent<Rigidbody2D>();
+        ani = GetComponent<Animator>(); 
     }
 
     ///<summary>
@@ -62,9 +78,12 @@ public class controller2D : MonoBehaviour
 
     private void Update()
     {
-        Flip(); 
+        Flip();
+        CheckGround();
+        Jump(); 
     }
     #endregion
+
     #region 方法
     ///<summary>
     ///1.玩家是否有按移動按鍵，左右方向鍵或A、D
@@ -79,6 +98,9 @@ public class controller2D : MonoBehaviour
 
         //剛體元件(rig).加速度 = 新 二維向量(h 值 * 移動速度, 剛體.加速度.垂直)
         rig.velocity = new Vector2(h * speed, rig.velocity.y);
+
+        //當 水平值 不等於零 勾選 走路參數
+        ani.SetBool(isWalk, h != 0); 
     }
 
     ///<summary>
@@ -101,6 +123,33 @@ public class controller2D : MonoBehaviour
         else if (h > 0)
         {
             transform.eulerAngles = Vector3.zero; 
+        }
+    }
+
+    ///<summary>
+    ///檢查是否在地板
+    ///</summary>
+    private void CheckGround()
+    {
+        //碰撞資訊 = 2D物理.覆蓋圓形(中心點，半徑，圖層)
+        Collider2D hit = Physics2D.OverlapCircle(transform.position +
+            transform.TransformDirection(checkGroundOffset), checkGroundRadius, canJumpLayer); 
+
+        //print("碰到的物件名稱：" + hit.name); 
+        isGrounded = hit;
+
+        //當 不在地板上 勾選
+        ani.SetBool(doTouch, !isGrounded); 
+    } 
+    
+    private void Jump()
+    {
+        //如果 在地板上 並且 按下指定按鍵
+        if (isGrounded && Input.GetKeyDown("space"))
+        {
+            // 剛體.添加推力(二維向量)
+            rig.AddForce(new Vector2(0, jump)); 
+
         }
     }
     #endregion
